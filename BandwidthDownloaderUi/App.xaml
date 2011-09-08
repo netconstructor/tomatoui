@@ -1,0 +1,269 @@
+﻿<Application
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:Views="clr-namespace:BandwidthDownloaderUi.Views" 
+			 xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+			  xmlns:visualizationToolkit="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
+			  xmlns:my="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:Converters="clr-namespace:BandwidthDownloaderUi.Converters" 
+    mc:Ignorable="d" 
+    x:Class="BandwidthDownloaderUi.App" 
+			 
+			 >
+    
+    <!--
+    StartupUri="Views\MainWindow.xaml" 
+    -->
+    
+    <Application.Resources>
+
+    	<Converters:MonthlyMinMaxAvgValueConverter x:Key="MonthlyMinMaxAvgValueConverter"/>
+        <Converters:TransferUnitValueConverter x:Key="TransferUnitValueConverter"/>
+        <Converters:CollectionElementCountValueConverter x:Key="CollectionElementCountValueConverter"/>
+        <Converters:ListCountToVisibilityValueConverter x:Key="ListCountToVisibilityConverter"/>
+
+    	<DataTemplate DataType="{x:Type Views:DailyViewModel}">
+    		<Views:DailyView />
+    	</DataTemplate>
+
+    	<DataTemplate DataType="{x:Type Views:MonthlyViewModel}">
+    		<Views:MonthlyView />
+    	</DataTemplate>
+
+        <DataTemplate DataType="{x:Type Views:SettingsViewModel}">
+            <Views:SettingsView />
+        </DataTemplate>
+
+
+        <ControlTemplate x:Key="Template1" TargetType="{x:Type chartingToolkit:Chart}">
+    		<Border 
+                AutomationProperties.AutomationId="fooborder"
+                Background="{TemplateBinding Background}" 
+    			BorderBrush="{TemplateBinding BorderBrush}" 
+    			BorderThickness="{TemplateBinding BorderThickness}" 
+    			Padding="{TemplateBinding Padding}">
+    			<Grid>
+    				<Grid.RowDefinitions>
+    					<RowDefinition Height="Auto" />
+    					<RowDefinition Height="*" />
+    				</Grid.RowDefinitions>
+		  
+    				<Grid Grid.Row="0">
+    					<Grid.RowDefinitions>
+    						<RowDefinition/> 	
+    						<RowDefinition/> 	
+    					</Grid.RowDefinitions>
+		  	
+    					<Grid Grid.Row="0">
+    						<Grid.ColumnDefinitions>
+    							<ColumnDefinition Width="Auto"/>
+    							<ColumnDefinition Width="*"/>
+    						</Grid.ColumnDefinitions>
+						
+    						<visualizationToolkit:Title
+    							Margin="0,0,20,0"
+    							VerticalAlignment="Top"
+    							HorizontalAlignment="Left" 
+    							Content="{TemplateBinding Title}" 
+    							Style="{TemplateBinding TitleStyle}" />
+				
+    						<StackPanel 
+                                Visibility="{Binding FilteredValues, Converter={StaticResource ListCountToVisibilityConverter}}"
+                                Margin="0,0,0,8" Orientation="Horizontal" Grid.Column="1">
+    							<ComboBox 					
+    								MaxHeight="25"
+    								ItemsSource="{Binding Filters, Mode=OneWay}" 
+    								SelectedItem="{Binding FilterStart, Mode=TwoWay}"
+    								DisplayMemberPath="Timestamp"
+						/>
+
+    							<ComboBox
+    								Margin="8,0,4,0"						
+    								MaxHeight="25"
+    								ItemsSource="{Binding Filters, Mode=OneWay}" 
+    								SelectedItem="{Binding FilterEnd, Mode=TwoWay}"
+    								DisplayMemberPath="Timestamp"/>
+
+                                <ComboBox 
+    								MaxHeight="25"
+    								MaxWidth="100"
+    								Margin="8,0,0,0"
+    								SelectedItem="{Binding TransferUnit, Mode=TwoWay}">
+                                    <Views:TransferUnit>Kilobytes</Views:TransferUnit>
+                                    <Views:TransferUnit>Megabytes</Views:TransferUnit>
+                                    <Views:TransferUnit>Gigabytes</Views:TransferUnit>
+                                </ComboBox>
+
+                            </StackPanel>						
+    					</Grid>			
+			
+
+			
+    				</Grid>
+		  
+          
+    				<Grid AutomationProperties.AutomationId="othergrid" Grid.Row="1">
+    					<Grid.ColumnDefinitions>
+    						<ColumnDefinition Width="*" />
+    						<ColumnDefinition Width="Auto" />
+    					</Grid.ColumnDefinitions>
+          				
+    					<Border Padding="4,0,4,0" BorderThickness="2" BorderBrush="Black" CornerRadius="8" >          		
+    						<Grid>
+                                <Border BorderThickness="2" x:Name="mask" Background="Red" CornerRadius="8"/>				
+    							<my:EdgePanel Background="White" x:Name="ChartArea" Style="{DynamicResource EdgePanelStyle1}">
+    								<my:EdgePanel.OpacityMask>
+    									<VisualBrush Visual="{Binding ElementName=mask, Mode=OneWay}"/>
+    								</my:EdgePanel.OpacityMask>
+    								<Grid Panel.ZIndex="-1" Style="{TemplateBinding PlotAreaStyle}"/>
+    							</my:EdgePanel>
+    						</Grid>
+    					</Border>
+			
+          	
+			
+    					<Border Grid.Column="1" Margin="20,0,10,0" >
+    						
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"></RowDefinition>
+									<RowDefinition Height="*"></RowDefinition>
+								</Grid.RowDefinitions>
+							
+								<!-- Last updated -->	
+								<Grid VerticalAlignment="Top" Grid.Row="0">	
+									
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition></ColumnDefinition>
+										<ColumnDefinition></ColumnDefinition>
+									</Grid.ColumnDefinitions>
+									
+									<Grid.RowDefinitions>
+										<RowDefinition></RowDefinition>
+										<RowDefinition></RowDefinition>
+									</Grid.RowDefinitions>
+									
+									<TextBlock Margin="0,0,4,0" Grid.Row="0" Grid.Column="0" Text="Updated"/>
+									<TextBlock AutomationProperties.AutomationId="lastupdated" Grid.Row="0" Grid.Column="1" Text="{Binding LastUpdated, StringFormat=T, TargetNullValue=Never}"/>
+									
+									<TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding XValues}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding FilteredValues, Converter={StaticResource CollectionElementCountValueConverter}}"/>
+									
+								</Grid>
+							
+								<!-- Download / Upload -->
+    							<Grid VerticalAlignment="Center" Grid.Row="1">
+    								<Grid.ColumnDefinitions>
+    									<ColumnDefinition/>
+    									<ColumnDefinition/>
+    								</Grid.ColumnDefinitions>
+					
+    								<Grid.RowDefinitions>
+    									<RowDefinition/>
+    									<RowDefinition/>
+    									<RowDefinition/>
+    									<RowDefinition/>
+    									<RowDefinition/>
+    									<RowDefinition/>
+    									<RowDefinition/>
+    									<RowDefinition/>
+    									<RowDefinition/>
+    									<RowDefinition/>						
+    								</Grid.RowDefinitions>
+					
+        					        <!--Download -->
+    								<Grid Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0">
+    									<Grid.ColumnDefinitions>
+    										<ColumnDefinition Width="Auto"/>
+    										<ColumnDefinition/>
+                                            <ColumnDefinition/>
+    									</Grid.ColumnDefinitions>
+    									<Rectangle Grid.Column="0" Margin="0,0,8,0" Width="10" Height="10">
+    										<Rectangle.Fill>
+    											<RadialGradientBrush Center="0.075,0.015" GradientOrigin="-0.1,-0.1" RadiusY="0.9" RadiusX="1.05">
+    												<GradientStop Color="#FFB9D6F7"/>
+    												<GradientStop Color="#FF284B70" Offset="1"/>
+    											</RadialGradientBrush>								
+    										</Rectangle.Fill>
+    									</Rectangle>
+						
+    									<TextBlock HorizontalAlignment="Left" Grid.Column="1" Text="Download"/>
+                                        <TextBlock HorizontalAlignment="Left" Grid.Column="2" Margin="2,0,0,0"
+                                                   Text="{Binding TransferUnit, StringFormat=(\{0\}),Converter={StaticResource TransferUnitValueConverter}}"/>
+    								</Grid>
+					
+    								<TextBlock Grid.Column="0" Grid.Row="1" Text="Min"/>
+    								<TextBlock HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1" 
+                                               Text="{Binding FilteredValues, Mode=OneWay, Converter={StaticResource MonthlyMinMaxAvgValueConverter}, ConverterParameter=MinDownload}"/>
+    								
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Max"/>
+    								<TextBlock HorizontalAlignment="Right" Grid.Column="1" Grid.Row="2"
+                                               Text="{Binding FilteredValues, Mode=OneWay, Converter={StaticResource MonthlyMinMaxAvgValueConverter}, ConverterParameter=MaxDownload}"/>
+    								
+                                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Avg"/>
+    								<TextBlock HorizontalAlignment="Right" Grid.Column="1" Grid.Row="3"
+                                               Text="{Binding FilteredValues, Mode=OneWay, Converter={StaticResource MonthlyMinMaxAvgValueConverter}, ConverterParameter=AvgDownload}"/>
+                                    
+    								<TextBlock Grid.Column="0" Grid.Row="4" Text="Total"/>
+    								<TextBlock HorizontalAlignment="Right" Grid.Column="1" Grid.Row="4"
+                                               Text="{Binding FilteredValues, Mode=OneWay, Converter={StaticResource MonthlyMinMaxAvgValueConverter}, ConverterParameter=SumDownload}"/>
+
+    								<Grid Margin="0,4,0,0" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="5">
+    									<Grid.ColumnDefinitions>
+    										<ColumnDefinition Width="Auto"/>
+    										<ColumnDefinition/>
+                                            <ColumnDefinition/>
+    									</Grid.ColumnDefinitions>
+    									<Rectangle Grid.Column="0" Margin="0,0,8,0" Width="10" Height="10">
+    										<Rectangle.Fill>
+    											<RadialGradientBrush Center="0.075,0.015" GradientOrigin="-0.1,-0.1" RadiusY="0.9" RadiusX="1.05">
+    												<GradientStop Color="#FFFBB7B5"/>
+    												<GradientStop Color="#FF702828" Offset="1"/>
+    											</RadialGradientBrush>
+    										</Rectangle.Fill>
+    									</Rectangle>
+
+    									<TextBlock Grid.Column="1" HorizontalAlignment="Left" Text="Upload"/>
+                                        <TextBlock HorizontalAlignment="Left" Grid.Column="2" Margin="2,0,0,0"
+                                                   Text="{Binding TransferUnit, StringFormat=(\{0\}), Converter={StaticResource TransferUnitValueConverter}}"/>
+                                    </Grid>					
+					
+    								<TextBlock Grid.Column="0" Grid.Row="6" Text="Min"/>
+    								<TextBlock HorizontalAlignment="Right" Grid.Column="1" Grid.Row="6"
+                                               Text="{Binding FilteredValues, Mode=OneWay, Converter={StaticResource MonthlyMinMaxAvgValueConverter}, ConverterParameter=MinUpload}"/>
+                                    
+    								<TextBlock Grid.Column="0" Grid.Row="7" Text="Max"/>
+    								<TextBlock HorizontalAlignment="Right" Grid.Column="1" Grid.Row="7"
+                                               Text="{Binding FilteredValues, Mode=OneWay, Converter={StaticResource MonthlyMinMaxAvgValueConverter}, ConverterParameter=MaxUpload}"/>
+                                    
+    								<TextBlock Grid.Column="0" Grid.Row="8" Text="Avg"/>
+    								<TextBlock HorizontalAlignment="Right" Grid.Column="1" Grid.Row="8"
+                                               Text="{Binding FilteredValues, Mode=OneWay, Converter={StaticResource MonthlyMinMaxAvgValueConverter}, ConverterParameter=AvgUpload}"/>
+                                    
+    								<TextBlock Grid.Column="0" Grid.Row="9" Text="Total"/>
+    								<TextBlock HorizontalAlignment="Right" Grid.Column="1" Grid.Row="9"
+                                               Text="{Binding FilteredValues, Mode=OneWay, Converter={StaticResource MonthlyMinMaxAvgValueConverter}, ConverterParameter=SumUpload}"/>
+					
+					
+    							</Grid>							
+								
+							</Grid>
+			
+
+			
+    					</Border>
+			
+			
+    				</Grid>
+    			</Grid>
+    		</Border>
+    	</ControlTemplate>
+    	<Style x:Key="EdgePanelStyle1" TargetType="{x:Type my:EdgePanel}">
+    		<Setter Property="MinWidth" Value="100"/>
+    		<Setter Property="MinHeight" Value="75"/>
+    	</Style>
+
+  </Application.Resources>
+</Application>

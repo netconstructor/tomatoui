@@ -1,0 +1,44 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
+             xmlns:BandwidthDownloaderUi="clr-namespace:BandwidthDownloaderUi" xmlns:Converters="clr-namespace:BandwidthDownloaderUi.Converters" xmlns:visualizationToolkit="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit" xmlns:System_Windows_Controls_DataVisualization_Charting_Primitives="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit" x:Class="BandwidthDownloaderUi.Views.MonthlyView"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="700">
+    <UserControl.Resources>
+        <Converters:MonthlyTimestampValueConverter x:Key="MonthlyBandwidthTimestampConverter" />
+    </UserControl.Resources>
+    <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition/>
+            </Grid.ColumnDefinitions>                           
+        </Grid>
+
+
+
+            <chartingToolkit:Chart BorderThickness="0" Grid.Row="1" Title="Monthly Bandwidth" 
+                                   Template="{StaticResource Template1}">
+                <chartingToolkit:LineSeries                             
+                        Title="Download" 
+                        IndependentValueBinding="{Binding Converter={StaticResource MonthlyBandwidthTimestampConverter}}"
+                        DependentValueBinding="{Binding Download, Mode=OneWay}" 
+                        ItemsSource="{Binding FilteredValues, Mode=OneWay}" 
+                        IsSelectionEnabled="True"/>
+                <chartingToolkit:LineSeries 
+                        Title="Upload" 
+                        IndependentValueBinding="{Binding Converter={StaticResource MonthlyBandwidthTimestampConverter}}"
+                        DependentValueBinding="{Binding Upload, Mode=OneWay}"
+                        ItemsSource="{Binding FilteredValues, Mode=OneWay}" 
+                        IsSelectionEnabled="True"/>
+            </chartingToolkit:Chart>
+        </Grid>
+</UserControl>
