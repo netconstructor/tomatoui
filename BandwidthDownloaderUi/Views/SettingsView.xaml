@@ -3,30 +3,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Converters="clr-namespace:BandwidthDownloaderUi.Converters" mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="400">
     <UserControl.Resources>
+
+        <Style x:Key="SettingTextBlock" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="4,0,4,4"/>
+        </Style>
+
+        <Style x:Key="SettingTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="4,0,4,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Width" Value="300"/>
+        </Style>
+
+
     </UserControl.Resources>
-    <Grid>
-        <StackPanel Margin="4,4" Orientation="Vertical">
-            
-            <TextBlock Margin="0,8,0,0" Text="Url to monthly/daily bandwidth page"></TextBlock>
-            <TextBox Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            
-            <TextBlock Text="Username"></TextBlock>
-            <TextBox Text="{Binding UserName, Mode=TwoWay}"></TextBox>
-            
-            <TextBlock Text="Password"></TextBlock>
-            <TextBox Text="{Binding Password, Mode=TwoWay}"></TextBox>
-            
-            <TextBlock Text="Timeout (seconds)"></TextBlock>
-            <TextBox 
+    <Grid Margin="0,20,0,0">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+
+        <TextBlock Style="{StaticResource SettingTextBlock}" Grid.Row="0" Text="Url to monthly/daily bandwidth page"></TextBlock>
+        <TextBox Style="{StaticResource SettingTextBox}" Grid.Row="1" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <TextBlock Style="{StaticResource SettingTextBlock}" Grid.Row="2" Text="Username"></TextBlock>
+        <TextBox Style="{StaticResource SettingTextBox}"  Grid.Row="3" Text="{Binding UserName, Mode=TwoWay}"></TextBox>
+
+        <TextBlock Style="{StaticResource SettingTextBlock}" Grid.Row="4" Text="Password"></TextBlock>
+        <TextBox Style="{StaticResource SettingTextBox}"  Grid.Row="5" Text="{Binding Password, Mode=TwoWay}"></TextBox>
+
+        <TextBlock Style="{StaticResource SettingTextBlock}"  Grid.Row="6" Text="Timeout (seconds)"></TextBlock>
+        <TextBox  Grid.Row="7" 
+                   Style="{StaticResource SettingTextBox}" 
                 x:Name="txtTimeout"
                 ToolTip="{Binding ElementName=txtTimeout, Path=(Validation.Errors)[0].ErrorContent}"
                 Text="{Binding TimeoutText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
 
-            <Button    
+        <Button Grid.Row="8"  
+                HorizontalAlignment="Left"
+                MinWidth="75"
                 Command="{Binding SaveCommand}"
-                Margin="4,40,0,0"  Content="Save"></Button>
-        </StackPanel>
+                Margin="4,4,0,0"  Content="Save"></Button>
+        
     </Grid>
 </UserControl>
