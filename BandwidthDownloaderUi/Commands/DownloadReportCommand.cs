@@ -70,7 +70,7 @@
             this.isBusy = true;
             this.RaiseCanExecuteChanged();
 
-            this.reportDownloader.Uri = new Uri(this.settings.Address);
+            this.reportDownloader.Address = this.settings.Address;
             this.reportDownloader.UserName = this.settings.UserName;
             this.reportDownloader.Password = this.settings.Password;
             this.reportDownloader.Timeout = (int)TimeSpan.FromSeconds(this.settings.Timeout).TotalMilliseconds;
