@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		BandwidthDownloader\Local.testsettings = BandwidthDownloader\Local.testsettings
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{56EFC17D-80F1-4039-A70D-0EF05F7C9C14}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BandwidthDownloaderUi", "BandwidthDownloaderUi\BandwidthDownloaderUi.csproj", "{DC7D80FA-8EDB-481B-9EA1-541174CCFBED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BandwidthDownloaderUiTests", "UnitTests\BandwidthDownloaderUiTests\BandwidthDownloaderUiTests.csproj", "{DB7B238D-53BA-4004-8C6A-797140E6DD09}"
@@ -51,8 +49,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{DB7B238D-53BA-4004-8C6A-797140E6DD09} = {56EFC17D-80F1-4039-A70D-0EF05F7C9C14}
 	EndGlobalSection
 EndGlobal

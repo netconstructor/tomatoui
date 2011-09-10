@@ -13,24 +13,29 @@
     public interface ISettings
     {
         /// <summary>
-        /// Gets Address.
+        /// Gets or sets Address.
         /// </summary>
-        string Address { get; }
+        string Address { get; set; }
 
         /// <summary>
-        /// Gets UserName.
+        /// Gets or sets UserName.
         /// </summary>
-        string UserName { get; }
+        string UserName { get; set; }
 
         /// <summary>
-        /// Gets Password.
+        /// Gets or sets Password.
         /// </summary>
-        string Password { get; }
+        string Password { get; set; }
 
         /// <summary>
-        /// Gets Timeout.
+        /// Gets or sets Timeout.
         /// </summary>
-        int Timeout { get; }
+        int Timeout { get; set; }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        void SaveSettings();
     }
 
     /// <summary>
@@ -42,6 +47,7 @@
         /// Initializes a new instance of the <see cref="Settings"/> class.
         /// </summary>
         public Settings()
+            : base(FileOption.FileMustExist)
         {
             this.Address = this.GetValue("Address");
             this.UserName = this.GetValue("UserName");
@@ -50,23 +56,35 @@
         }
 
         /// <summary>
-        /// Gets Address.
+        /// Saves the settings.
         /// </summary>
-        public string Address { get; private set; }
+        public void SaveSettings()
+        {
+            this.SetValue("Address", this.Address);
+            this.SetValue("UserName", this.UserName);
+            this.SetValue("Password", this.Password);
+            this.SetValue("Timeout", this.Timeout);
+            this.Save();
+        }
 
         /// <summary>
-        /// Gets UserName.
+        /// Gets or sets Address.
         /// </summary>
-        public string UserName { get; private set; }
+        public string Address { get; set; }
 
         /// <summary>
-        /// Gets Password.
+        /// Gets or sets UserName.
         /// </summary>
-        public string Password { get; private set; }
+        public string UserName { get; set; }
 
         /// <summary>
-        /// Gets Timeout.
+        /// Gets or sets Password.
         /// </summary>
-        public int Timeout { get; private set; }
+        public string Password { get; set; }
+
+        /// <summary>
+        /// Gets or sets Timeout.
+        /// </summary>
+        public int Timeout { get; set; }
     }
 }

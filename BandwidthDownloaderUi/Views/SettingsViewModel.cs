@@ -1,11 +1,6 @@
 ﻿namespace BandwidthDownloaderUi.Views
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Linq;
-    using System.Net;
-    using System.Text;
     using System.Windows.Input;
 
     using BandwidthDownloaderUi.Infra;
@@ -38,17 +33,9 @@
             this.saveCommand = new DelegateCommand(this.SaveSettings, this.CanSaveSettings);
         }
 
-        private bool CanSaveSettings(object arg)
-        {
-            var msg = this.ValidateTimeout();
-            return string.IsNullOrEmpty(msg);
-        }
-
-        private void SaveSettings(object obj)
-        {
-            
-        }
-
+        /// <summary>
+        /// Gets SaveCommand.
+        /// </summary>
         public ICommand SaveCommand
         {
             get
@@ -57,12 +44,16 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets UserName.
+        /// </summary>
         public string UserName
         {
             get
             {
                 return this.userName;
             }
+
             set
             {
                 this.userName = value;
@@ -70,6 +61,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets Password.
+        /// </summary>
         public string Password
         {
             get
@@ -83,12 +77,16 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets Address.
+        /// </summary>
         public string Address
         {
             get
             {
                 return this.address;
             }
+
             set
             {
                 this.address = value;
@@ -96,6 +94,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets or sets TimeoutText.
+        /// </summary>
         public string TimeoutText
         {
             get
@@ -135,6 +136,21 @@
             {
                 return this.error;
             }
+        }
+
+        private bool CanSaveSettings(object arg)
+        {
+            var msg = this.ValidateTimeout();
+            return string.IsNullOrEmpty(msg);
+        }
+
+        private void SaveSettings(object obj)
+        {
+            this.settings.Address = this.Address;
+            this.settings.UserName = this.UserName;
+            this.settings.Password = this.Password;
+            this.settings.Timeout = int.Parse(this.TimeoutText);
+            this.settings.SaveSettings();
         }
 
         private string ValidateTimeout()
