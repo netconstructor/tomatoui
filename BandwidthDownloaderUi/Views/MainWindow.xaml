@@ -11,7 +11,7 @@
     <Window.Resources>
         <Converters:BoolToVisibilityValueConverter x:Key="BoolToVisibilityConverter"/>
         <Converters:NullToBoolValueConverter x:Key="NullToBoolValueConverter"/>
-		
+        
         <Style x:Key="SlideInBorder" TargetType="{x:Type Border}">
             <Style.Resources>
                 <Storyboard x:Key="Storyboard1">
@@ -35,7 +35,7 @@
             </Style.Triggers>
 
         </Style>
-		
+        
         <Style x:Key="HorizontalSlideInBorder" TargetType="{x:Type Border}">
             <Style.Resources>
                 <Storyboard x:Key="Storyboard1">
@@ -60,11 +60,11 @@
 
         </Style>
 
-		
+        
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-        	<RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>            
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -77,8 +77,8 @@
         <!--IsEnabled="{Binding Error, Converter={StaticResource NullToBoolValueConverter}}"-->
 
         <Border 
-		Grid.Row="0"
-		HorizontalAlignment="Stretch" 
+        Grid.Row="0"
+        HorizontalAlignment="Stretch" 
                 Background="White" 
                 x:Name="HiddenBorder" 
                 VerticalAlignment="Top" 
@@ -101,8 +101,8 @@
 
                 <StackPanel Orientation="Vertical">
                     <TextBlock
-					HorizontalAlignment="Left" 
-					TextWrapping="Wrap"><Run Text="If you think this is a bug, please report it by copying the details to clipboard and emailing the report to "/><Hyperlink 
+                    HorizontalAlignment="Left" 
+                    TextWrapping="Wrap"><Run Text="If you think this is a bug, please report it by copying the details to clipboard and emailing the report to "/><Hyperlink 
                         Cursor="Hand" 
                         Command="{Binding OpenUriCommand}"
                         CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}"
@@ -110,11 +110,11 @@
                         Cursor="Hand" 
                         Command="{Binding OpenUriCommand}"
                         CommandParameter="{Binding NavigateUri, RelativeSource={RelativeSource Self}}"
-                        NavigateUri="https://github.com/tparvi/tomato/issues"><Run Text="https://github.com/tparvi/tomato/issues"/></Hyperlink></TextBlock>
+                        NavigateUri="https://github.com/tparvi/tomatoui/issues"><Run Text="https://github.com/tparvi/tomatoui/issues"/></Hyperlink></TextBlock>
 
                     <TextBlock 
-					Foreground="Red" 
-					Text="{Binding ErrorMessage, Mode=OneWay}"/>
+                    Foreground="Red" 
+                    Text="{Binding ErrorMessage, Mode=OneWay}"/>
 
 
                 </StackPanel>
@@ -128,11 +128,11 @@
                     MinWidth="75" Content="Copy"/>
 
                     <Button 
-					Command="{Binding IgnoreCommand}"
-					CommandParameter="{Binding Error}"
-					Margin="4,4,0,0" 
-					MinWidth="75" 
-					Content="Ignore"/>
+                    Command="{Binding IgnoreCommand}"
+                    CommandParameter="{Binding Error}"
+                    Margin="4,4,0,0" 
+                    MinWidth="75" 
+                    Content="Ignore"/>
                 </StackPanel>
 
                 <TextBlock 
@@ -160,54 +160,15 @@
                         Command="{Binding DownloadReportCommand}"/>
                 </StackPanel>
         
-	
-		
-		
-    	<Grid ShowGridLines="True" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">			
-    		<Grid >
-    			<Grid.RowDefinitions>
-    				<RowDefinition Height="Auto"/>
-    				<RowDefinition/>
-    			</Grid.RowDefinitions>
-				
-
-
-			<Expander Content="{Binding Settings}"  ExpandDirection="Left" Grid.Row="1">
-				<!--
-				<Expander.Header>
-					<StackPanel Orientation="Vertical">
-						<TextBlock>S</TextBlock>
-						<TextBlock Margin="0,-6,0,0">e</TextBlock>
-						<TextBlock Margin="0,-4,0,0">t</TextBlock>
-						<TextBlock Margin="0,-4,0,0">t</TextBlock>
-						<TextBlock Margin="0,-4,0,0">i</TextBlock>
-						<TextBlock Margin="0,-6,0,0">n</TextBlock>
-						<TextBlock Margin="0,-6,0,0">g</TextBlock>
-						<TextBlock Margin="0,-4,0,0">s</TextBlock>
-					</StackPanel>
-				</Expander.Header>
-				-->
-			</Expander>
-
-<!--
-    			<Border 
-    				Grid.Row="1"
-    				Background="Red"
-    				HorizontalAlignment="Stretch" 
-    				x:Name="SettingsBorder" 
-    				VerticalAlignment="Top" 
-    				Height="Auto" 
-    				Width="0"
-    				IsEnabled="False"
-    				Opacity="1" 
-    				Style="{DynamicResource HorizontalSlideInBorder}"/>
--->
-    		</Grid>
-				
-			
-			
-    	</Grid>
-		
-
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">			
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+            <Expander Content="{Binding Settings}"  ExpandDirection="Left" Grid.Row="1">
+            </Expander>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
