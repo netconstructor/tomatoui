@@ -61,6 +61,7 @@
     <Compile Include="ExceptionParserTests.cs" />
     <Compile Include="CopyErrorReportToClipboardCommandTests.cs" />
     <Compile Include="DownloadReportCommandTests\When_Error_is_received.cs" />
+    <Compile Include="SettingsViewModelTests\When_settings_are_invalid.cs" />
     <Compile Include="SettingsViewModelTests\When_settings_are_valid.cs" />
     <Compile Include="TransferUnitValueConverterTests.cs" />
     <Compile Include="MonthlyMinMaxAvgValueConverterTests.cs" />

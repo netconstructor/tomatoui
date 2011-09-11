@@ -5,6 +5,9 @@
 
     using BandwidthDownloaderUi.Infra;
 
+    /// <summary>
+    /// ViewModel for settings.
+    /// </summary>
     public class SettingsViewModel : ViewModel, IDataErrorInfo
     {
         private readonly ISettings settings;
@@ -19,10 +22,14 @@
 
         private string timeoutText;
 
-        private bool isValid;
-
         private DelegateCommand saveCommand;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
+        /// </summary>
+        /// <param name="settings">
+        /// The settings.
+        /// </param>
         public SettingsViewModel(ISettings settings)
         {
             this.settings = settings;
@@ -70,6 +77,7 @@
             {
                 return this.password;
             }
+
             set
             {
                 this.password = value;
@@ -111,6 +119,26 @@
             }
         }
 
+        /// <summary>
+        /// Gets Error.
+        /// </summary>
+        public string Error
+        {
+            get
+            {
+                return this.error;
+            }
+        }
+
+        /// <summary>
+        /// Validates the property.
+        /// </summary>
+        /// <param name="columnName">
+        /// The column name.
+        /// </param>
+        /// <returns>
+        /// Validation error.
+        /// </returns>
         public string this[string columnName]
         {
             get
@@ -130,14 +158,6 @@
             }
         }
 
-        public string Error
-        {
-            get
-            {
-                return this.error;
-            }
-        }
-
         private bool CanSaveSettings(object arg)
         {
             var msg = this.ValidateTimeout();
@@ -146,6 +166,11 @@
 
         private void SaveSettings(object obj)
         {
+            if (!this.CanSaveSettings(obj))
+            {
+                return;
+            }
+
             this.settings.Address = this.Address;
             this.settings.UserName = this.UserName;
             this.settings.Password = this.Password;
