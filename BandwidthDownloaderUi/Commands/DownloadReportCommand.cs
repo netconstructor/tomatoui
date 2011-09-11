@@ -69,7 +69,7 @@
         protected override void InternalExecute(object parameter)
         {
             this.isBusy = true;
-            this.RaiseCanExecuteChanged();
+            this.OnCanExecuteChanged();
 
             this.reportDownloader.Address = this.settings.Address;
             this.reportDownloader.UserName = this.settings.UserName;
@@ -99,24 +99,24 @@
         /// <param name="report">
         /// The report.
         /// </param>
-        /// <param name="timeStamp">
+        /// <param name="timestamp">
         /// The time stamp.
         /// </param>
         /// <param name="exception">Exception.</param>
-        protected virtual void RaiseReportDownloaded(BandwidthReport report, DateTime timeStamp, Exception exception)
+        protected virtual void OnReportDownloaded(BandwidthReport report, DateTime timestamp, Exception exception)
         {
             var handler = this.ReportDownloaded;
             if (null != handler)
             {
-                handler(this, new ReportDownloadedEventArgs(report, timeStamp, exception));
+                handler(this, new ReportDownloadedEventArgs(report, timestamp, exception));
             }
         }
 
         private void DownloadCompleted(object sender, DownloadCompletedEventArgs e)
         {
-            this.RaiseReportDownloaded(e.Report, Common.SystemTime(), e.Error);
+            this.OnReportDownloaded(e.Report, Common.SystemTime(), e.Error);
             this.isBusy = false;
-            this.RaiseCanExecuteChanged();
+            this.OnCanExecuteChanged();
         }
     }
 }

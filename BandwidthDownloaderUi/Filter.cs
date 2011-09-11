@@ -33,7 +33,7 @@
         {
             this.Year = monthlyValue.Year;
             this.Month = monthlyValue.Month;
-            this.Timestamp = new DateTime(this.Year, this.Month, 1).ToString(CultureInfo.CurrentCulture.DateTimeFormat.YearMonthPattern);
+            this.Timestamp = new DateTime(this.Year, this.Month, 1).ToString(CultureInfo.CurrentCulture.DateTimeFormat.YearMonthPattern, CultureInfo.CurrentCulture);
         }
 
         /// <summary>

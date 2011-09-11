@@ -40,7 +40,7 @@
             {
                 this.transferUnit = value;
                 this.UpdateValues();
-                this.RaisePropertyChanged("TransferUnit");
+                this.OnPropertyChanged("TransferUnit");
             }
         }
 
@@ -57,7 +57,7 @@
             private set
             {
                 this.values = value;
-                this.RaisePropertyChanged("Values");
+                this.OnPropertyChanged("Values");
             }
         }
 

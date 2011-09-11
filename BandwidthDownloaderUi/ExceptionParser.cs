@@ -8,7 +8,7 @@
     /// <summary>
     /// Used to parse the exception tree.    
     /// </summary>
-    public class ExceptionParser
+    public static class ExceptionParser
     {
         /// <summary>
         /// Iterates over the exception stack and tries to locate the exception.
@@ -49,7 +49,7 @@
         /// <returns>
         /// Message and possible raw content.
         /// </returns>
-        public string ParseException(Exception exception)
+        public static string ParseException(Exception exception)
         {
             var webException = FindException<WebException>(exception);
             if (null != webException)

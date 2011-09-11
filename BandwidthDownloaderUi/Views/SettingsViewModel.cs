@@ -1,6 +1,7 @@
 ﻿namespace BandwidthDownloaderUi.Views
 {
     using System.ComponentModel;
+    using System.Globalization;
     using System.Windows.Input;
 
     using BandwidthDownloaderUi.Infra;
@@ -33,10 +34,10 @@
         public SettingsViewModel(ISettings settings)
         {
             this.settings = settings;
-            this.UserName = settings.UserName;
-            this.Password = settings.Password;
-            this.Address = settings.Address;
-            this.TimeoutText = settings.Timeout.ToString();
+            this.userName = settings.UserName;
+            this.password = settings.Password;
+            this.address = settings.Address;
+            this.timeoutText = settings.Timeout.ToString(CultureInfo.InvariantCulture);
             this.saveCommand = new DelegateCommand(this.SaveSettings, this.CanSaveSettings);
         }
 
@@ -64,7 +65,7 @@
             set
             {
                 this.userName = value;
-                this.RaisePropertyChanged("UserName");
+                this.OnPropertyChanged("UserName");
             }
         }
 
@@ -81,7 +82,7 @@
             set
             {
                 this.password = value;
-                this.RaisePropertyChanged("Password");
+                this.OnPropertyChanged("Password");
             }
         }
 
@@ -98,7 +99,7 @@
             set
             {
                 this.address = value;
-                this.RaisePropertyChanged("Address");
+                this.OnPropertyChanged("Address");
             }
         }
 
@@ -115,7 +116,7 @@
             set
             {
                 this.timeoutText = value;
-                this.RaisePropertyChanged("TimeoutText");
+                this.OnPropertyChanged("TimeoutText");
             }
         }
 
@@ -148,12 +149,12 @@
                     var msg = this.ValidateTimeout();
                     if (!string.IsNullOrEmpty(msg))
                     {
-                        this.saveCommand.RaiseCanExecuteChanged();
+                        this.saveCommand.OnCanExecuteChanged();
                         return msg;
                     }
                 }
 
-                this.saveCommand.RaiseCanExecuteChanged();
+                this.saveCommand.OnCanExecuteChanged();
                 return null;
             }
         }
@@ -174,7 +175,7 @@
             this.settings.Address = this.Address;
             this.settings.UserName = this.UserName;
             this.settings.Password = this.Password;
-            this.settings.Timeout = int.Parse(this.TimeoutText);
+            this.settings.Timeout = int.Parse(this.TimeoutText, CultureInfo.InvariantCulture);
             this.settings.SaveSettings();
         }
 

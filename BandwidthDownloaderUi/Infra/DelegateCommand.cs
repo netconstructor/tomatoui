@@ -60,7 +60,7 @@
         /// <summary>
         /// Raises the <see cref="CanExecuteChanged"/> event.
         /// </summary>
-        public virtual void RaiseCanExecuteChanged()
+        public virtual void OnCanExecuteChanged()
         {
             var handler = this.CanExecuteChanged;
             if (null != handler)

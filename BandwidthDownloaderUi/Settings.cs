@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Text;
 
@@ -49,9 +50,9 @@
         public Settings()
             : base(FileOption.FileMustExist)
         {
-            this.Address = this.GetValue("Address");
-            this.UserName = this.GetValue("UserName");
-            this.Password = this.GetValue("Password");
+            this.Address = this.GetValue<string>("Address", CultureInfo.InvariantCulture);
+            this.UserName = this.GetValue<string>("UserName", CultureInfo.InvariantCulture);
+            this.Password = this.GetValue<string>("Password", CultureInfo.InvariantCulture);
             this.Timeout = this.GetValue<int>("Timeout");
         }
 

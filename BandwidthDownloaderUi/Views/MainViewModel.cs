@@ -45,8 +45,6 @@
 
         private Exception error;
 
-        private ExceptionParser exceptionParser = new ExceptionParser();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
@@ -94,9 +92,9 @@
             this.OpenUriCommand = openUriCommand;
             this.ClipboardCommand = clipboardCommand;
 
-            this.Daily = daily;
-            this.Monthly = monthly;
-            this.Settings = settingsViewModel;
+            this.daily = daily;
+            this.monthly = monthly;
+            this.settings = settingsViewModel;
         }
 
         /// <summary>
@@ -112,7 +110,7 @@
             set
             {
                 this.daily = value;
-                this.RaisePropertyChanged("Daily");
+                this.OnPropertyChanged("Daily");
             }
         }
 
@@ -129,7 +127,7 @@
             set
             {
                 this.monthly = value;
-                this.RaisePropertyChanged("Monthly");
+                this.OnPropertyChanged("Monthly");
             }
         }
 
@@ -146,7 +144,7 @@
             set
             {
                 this.settings = value;
-                this.RaisePropertyChanged("Settings");
+                this.OnPropertyChanged("Settings");
             }
         }
 
@@ -163,7 +161,7 @@
             private set
             {
                 this.isBusy = value;
-                this.RaisePropertyChanged("IsBusy");
+                this.OnPropertyChanged("IsBusy");
             }
         }
 
@@ -180,7 +178,7 @@
             private set
             {
                 this.errorMessage = value;
-                this.RaisePropertyChanged("ErrorMessage");
+                this.OnPropertyChanged("ErrorMessage");
             }
         }
 
@@ -197,7 +195,7 @@
             private set
             {
                 this.error = value;
-                this.RaisePropertyChanged("Error");
+                this.OnPropertyChanged("Error");
             }
         }
 
@@ -237,10 +235,10 @@
 
         private void ReportErrorToUser(Exception exception)
         {
-            var result = this.exceptionParser.ParseException(exception);
+            var result = ExceptionParser.ParseException(exception);
             this.Error = exception;
             this.ErrorMessage = result;
-            this.ClipboardCommand.RaiseCanExecuteChanged();
+            this.ClipboardCommand.OnCanExecuteChanged();
         }
     }
 }

@@ -36,7 +36,7 @@ namespace BandwidthDownloaderUi.Converters
         {
             var monthlyBandwidth = value as MonthlyValue;
 
-            return string.Format("{0}/{1}", monthlyBandwidth.Month, monthlyBandwidth.Year);
+            return string.Format(CultureInfo.InvariantCulture, "{0}/{1}", monthlyBandwidth.Month, monthlyBandwidth.Year);
         }
 
         /// <summary>

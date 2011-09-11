@@ -35,7 +35,7 @@ namespace BandwidthDownloaderUi.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var bandwidth = value as DailyValue;
-            var result = bandwidth.Timestamp.ToString("d.M");
+            var result = bandwidth.Timestamp.ToString("d.M", CultureInfo.InvariantCulture);
             return result;
         }
 

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
 
     using BandwidthDownloaderUi.Views;
@@ -69,6 +70,23 @@
         public static bool HasElements<T>(this IList<T> collection)
         {
             return collection.Count != 0;
+        }
+
+        /// <summary>
+        /// Formats the string.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <param name="args">
+        /// The args.
+        /// </param>
+        /// <returns>
+        /// Formatted string.
+        /// </returns>
+        internal static string FormatWith(this string value, params object[] args)
+        {
+            return string.Format(CultureInfo.InvariantCulture, value, args);
         }
     }
 }

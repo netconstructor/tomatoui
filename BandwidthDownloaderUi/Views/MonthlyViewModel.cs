@@ -54,7 +54,7 @@
             {
                 this.transferUnit = value;
                 this.UpdateAllAndFilteredValues();
-                this.RaisePropertyChanged("TransferUnit");
+                this.OnPropertyChanged("TransferUnit");
             }
         }
 
@@ -71,7 +71,7 @@
             private set
             {
                 this.filteredValues = value;
-                this.RaisePropertyChanged("FilteredValues");
+                this.OnPropertyChanged("FilteredValues");
             }
         }
 
@@ -88,7 +88,7 @@
             private set
             {
                 this.filters = value;
-                this.RaisePropertyChanged("Filters");
+                this.OnPropertyChanged("Filters");
             }
         }
 
@@ -106,7 +106,7 @@
             {
                 this.filterStart = value;
                 this.FilterValues();
-                this.RaisePropertyChanged("FilterStart");
+                this.OnPropertyChanged("FilterStart");
             }
         }
 
@@ -124,7 +124,7 @@
             {
                 this.filterEnd = value;
                 this.FilterValues();
-                this.RaisePropertyChanged("FilterEnd");
+                this.OnPropertyChanged("FilterEnd");
             }
         }
 
@@ -141,7 +141,7 @@
             private set
             {
                 this.lastUpdated = value;
-                this.RaisePropertyChanged("LastUpdated");
+                this.OnPropertyChanged("LastUpdated");
             }
         }
 
@@ -187,8 +187,9 @@
             this.LastUpdated = e.Timestamp;
 
             // Update with the currently selected transfer unit
-            e.Monthly.ForEach(x => x.ChangeTransferUnit(this.transferUnit));
-            this.allValues = e.Monthly;
+            var temp = new List<MonthlyValue>(e.Monthly);            
+            temp.ForEach(x => x.ChangeTransferUnit(this.transferUnit));
+            this.allValues = temp;
 
             this.Filters = e.Monthly.Select(x => new Filter(x)).ToList();
 

@@ -15,8 +15,6 @@
     {
         private readonly ISystemClipboard clipboard;
 
-        private ExceptionParser exceptionParser = new ExceptionParser();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CopyErrorReportToClipboardCommand"/> class.
         /// </summary>
@@ -38,7 +36,7 @@
         {
             var error = parameter as Exception;
 
-            var errorMessages = this.exceptionParser.ParseException(error);
+            var errorMessages = ExceptionParser.ParseException(error);
 
             var builder = new StringBuilder();
 
@@ -48,7 +46,7 @@
             builder.AppendLine(string.Empty);
 
             builder.AppendLine("Bandwidth Downloader UI Error report");
-            builder.AppendLine(string.Format("Generated: {0}", DateTime.Now.ToString(CultureInfo.InvariantCulture)));
+            builder.AppendLine("Generated: {0}".FormatWith(DateTime.Now));
             builder.AppendLine(string.Empty);
 
             builder.AppendLine("Contact information");
@@ -62,8 +60,12 @@
 
             builder.AppendLine("Error messages:");
             builder.AppendLine(errorMessages);
-            builder.AppendLine("Stack trace:");
-            builder.AppendLine(error.ToString());
+
+            if (null != error)
+            {
+                builder.AppendLine("Stack trace:");
+                builder.AppendLine(error.ToString());                
+            }
 
             var parseException = ExceptionParser.FindException<ParseException>(error);
             if (null != parseException)

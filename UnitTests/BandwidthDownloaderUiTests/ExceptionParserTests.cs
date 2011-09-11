@@ -18,9 +18,7 @@
         [Test]
         public void Should_parse_exception()
         {
-            var parser = new ExceptionParser();
-
-            var result = parser.ParseException(new Exception("message"));
+            var result = ExceptionParser.ParseException(new Exception("message"));
 
             Assert.AreEqual("message", result);
         }
@@ -28,10 +26,9 @@
         [Test]
         public void Should_parse_ParseException()
         {
-            var parser = new ExceptionParser();
             var exception = new ParseException("message", "content", null);
 
-            var result = parser.ParseException(exception);
+            var result = ExceptionParser.ParseException(exception);
             
             Assert.IsNotNullOrEmpty(result);            
         }
@@ -39,10 +36,9 @@
         [Test]
         public void Should_parse_WebException()
         {
-            var parser = new ExceptionParser();
             var exception = new WebException("message");
 
-            var result = parser.ParseException(exception);
+            var result = ExceptionParser.ParseException(exception);
 
             Assert.IsNotNullOrEmpty(result);
         }

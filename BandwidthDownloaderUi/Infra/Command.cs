@@ -21,7 +21,7 @@
         /// <summary>
         /// Raises the <see cref="ICommand.CanExecuteChanged"/> event.
         /// </summary>
-        void RaiseCanExecuteChanged();
+        void OnCanExecuteChanged();
     }
 
     /// <summary>
@@ -74,7 +74,7 @@
         /// <summary>
         /// Raises the <see cref="CanExecuteChanged"/> event.
         /// </summary>
-        public virtual void RaiseCanExecuteChanged()
+        public virtual void OnCanExecuteChanged()
         {
             var handler = this.CanExecuteChanged;
             if (null != handler)

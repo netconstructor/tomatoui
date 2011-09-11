@@ -18,7 +18,7 @@
         /// Raises the <see cref="PropertyChanged"/> event.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
-        public virtual void RaisePropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             this.ThrowExceptionIfPropertyDoesNotExist(propertyName);
 
@@ -41,7 +41,7 @@
             Type type = this.GetType();
             if (null == type.GetProperty(propertyName))
             {
-                var msg = string.Format("{0} is not a public property of type {1}", propertyName, type.FullName);
+                var msg = "{0} is not a public property of type {1}".FormatWith(propertyName, type.FullName);
                 throw new ArgumentException(msg);
             }
         }

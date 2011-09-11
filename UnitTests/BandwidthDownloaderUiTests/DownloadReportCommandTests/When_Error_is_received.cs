@@ -1,6 +1,7 @@
 ﻿namespace BandwidthDownloaderUiTests.AutomatedUITests
 {
     using System;
+    using System.Linq;
 
     using BandwidthDownloaderUi;
     using BandwidthDownloaderUi.Commands;
@@ -35,7 +36,7 @@
 
             command.ReportDownloaded += (sender, args) =>
                 {
-                    itemCount = args.Monthly.Count;
+                    itemCount = args.Monthly.Count();
                 };
 
             command.Execute(null);
