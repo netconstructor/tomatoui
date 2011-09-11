@@ -6,13 +6,11 @@ namespace BandwidthDownloaderUi.Converters
     using System.Linq;
     using System.Windows;
     using System.Windows.Data;
-
-    using TomatoBandwidth;
-
+    
     /// <summary>
     /// Calculates statistics value for collection of bandwidth values.
     /// </summary>
-    [ValueConversion(typeof(List<MonthlyValue>), typeof(double))]
+    [ValueConversion(typeof(List<BandwidthValue>), typeof(double))]
     public class MonthlyMinMaxAvgValueConverter : IValueConverter
     {
         /// <summary>
@@ -55,7 +53,7 @@ namespace BandwidthDownloaderUi.Converters
         /// </summary>
         public const string SumUpload = "SumUpload";
 
-        private Dictionary<string, Func<IEnumerable<MonthlyValue>, double>> functions = new Dictionary<string, Func<IEnumerable<MonthlyValue>, double>>
+        private Dictionary<string, Func<IEnumerable<BandwidthValue>, double>> functions = new Dictionary<string, Func<IEnumerable<BandwidthValue>, double>>
             {
                 { MaxDownload, (enumerable) => { return enumerable.Max(x => x.Download); } },
                 { MinDownload, (enumerable) => { return enumerable.Min(x => x.Download); } },
@@ -87,7 +85,13 @@ namespace BandwidthDownloaderUi.Converters
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var items = value as List<MonthlyValue>;
+            var temp = value as System.Collections.IList;
+            var items = new List<BandwidthValue>();
+
+            foreach (var obj in temp)
+            {
+                items.Add(obj as BandwidthValue);
+            }
 
             if (0 == items.Count)
             {

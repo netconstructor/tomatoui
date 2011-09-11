@@ -2,21 +2,21 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     using BandwidthDownloaderUi.Infra;
 
     /// <summary>
     /// Base class for daily and monthly viewmodels.
     /// </summary>
+    /// <typeparam name="TValueType">
+    /// Type of the chart value.
+    /// </typeparam>
+    /// <typeparam name="TFilterType">
+    /// Type of the filter.
+    /// </typeparam>
     public class ChartViewModel<TValueType, TFilterType> : ViewModel
     {
-        protected List<TValueType> allValues = new List<TValueType>();
-
         private List<TValueType> filteredValues = new List<TValueType>();
-
-        public bool FilteringDisabled { get;  protected set; }
 
         private DateTime? lastUpdated;
 
@@ -28,6 +28,27 @@
 
         private TFilterType filterEnd;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChartViewModel{TValueType,TFilterType}"/> class.
+        /// </summary>
+        public ChartViewModel()
+        {
+            this.AllValues = new List<TValueType>();
+        }
+
+        /// <summary>
+        /// Gets or sets AllValues.
+        /// </summary>
+        public List<TValueType> AllValues { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether FilteringDisabled.
+        /// </summary>
+        public bool FilteringDisabled { get; protected set; }
+
+        /// <summary>
+        /// Gets or sets XValues.
+        /// </summary>
         public string XValues { get; set; }
 
         /// <summary>
@@ -135,10 +156,16 @@
             }
         }
 
+        /// <summary>
+        /// Updates all and filtered values.
+        /// </summary>
         protected virtual void UpdateAllAndFilteredValues()
         {            
         }
 
+        /// <summary>
+        /// Filters values.
+        /// </summary>
         protected virtual void FilterValues()
         {            
         }

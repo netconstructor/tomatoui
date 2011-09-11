@@ -138,6 +138,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BandwidthValue.cs" />
+    <Compile Include="DailyFilter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infra\DelegateCommand.cs" />
     <Compile Include="Settings.cs" />

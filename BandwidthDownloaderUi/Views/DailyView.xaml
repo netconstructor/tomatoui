@@ -6,37 +6,38 @@
              xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" 
              xmlns:BandwidthDownloaderUi="clr-namespace:BandwidthDownloaderUi" 
              xmlns:Converters="clr-namespace:BandwidthDownloaderUi.Converters" xmlns:Views="clr-namespace:BandwidthDownloaderUi.Views" mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="350" d:DesignWidth="700">
     <UserControl.Resources>
         <Converters:DailyTimestampValueConverter x:Key="DailyTimestampValueConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25" ></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0" />
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        </Grid>
 
-        <ComboBox MinWidth="100" SelectedItem="{Binding TransferUnit, Mode=TwoWay}" HorizontalAlignment="Left" Grid.Row="0">
-            <ComboBox.Items>
-                <Views:TransferUnit>Kilobytes</Views:TransferUnit>
-                <Views:TransferUnit>Megabytes</Views:TransferUnit>
-                <Views:TransferUnit>Gigabytes</Views:TransferUnit>
-            </ComboBox.Items>
-        </ComboBox>
 
-        <chartingToolkit:Chart Grid.Row="1" Title="Line Series Demo" Margin="4,4" >
-            <chartingToolkit:LineSeries 
+
+        <chartingToolkit:Chart BorderThickness="0" Grid.Row="1" Title="Monthly Bandwidth" 
+                                   Template="{StaticResource Template1}">
+            <chartingToolkit:LineSeries                             
                         Title="Download" 
                         IndependentValueBinding="{Binding Converter={StaticResource DailyTimestampValueConverter}}"
-                        DependentValueBinding="{Binding Path=Download, Mode=OneWay}" 
-                        ItemsSource="{Binding Values, Mode=OneWay}" 
+                        DependentValueBinding="{Binding Download, Mode=OneWay}" 
+                        ItemsSource="{Binding FilteredValues, Mode=OneWay}" 
                         IsSelectionEnabled="True"/>
             <chartingToolkit:LineSeries 
                         Title="Upload" 
                         IndependentValueBinding="{Binding Converter={StaticResource DailyTimestampValueConverter}}"
-                        DependentValueBinding="{Binding Path=Upload, Mode=OneWay}" 
-                        ItemsSource="{Binding Values, Mode=OneWay}" 
+                        DependentValueBinding="{Binding Upload, Mode=OneWay}"
+                        ItemsSource="{Binding FilteredValues, Mode=OneWay}" 
                         IsSelectionEnabled="True"/>
         </chartingToolkit:Chart>
     </Grid>

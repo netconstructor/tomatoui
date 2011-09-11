@@ -25,7 +25,7 @@
 
 
 
-            <chartingToolkit:Chart BorderThickness="0" Grid.Row="1" Title="Monthly Bandwidth" 
+            <chartingToolkit:Chart BorderThickness="0" Grid.Row="1" Title="Daily Bandwidth" 
                                    Template="{StaticResource Template1}">
                 <chartingToolkit:LineSeries                             
                         Title="Download" 

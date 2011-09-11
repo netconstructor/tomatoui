@@ -1,20 +1,16 @@
 ﻿namespace BandwidthDownloaderUi.Views
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using BandwidthDownloaderUi.Commands;
     using BandwidthDownloaderUi.Events;
-    using BandwidthDownloaderUi.Infra;
 
     /// <summary>
     /// View model for the daily view.
     /// </summary>
-    public class DailyViewModel : ViewModel
+    public class DailyViewModel : ChartViewModel<DailyValue, DailyFilter>
     {
-        private List<DailyValue> values = new List<DailyValue>();
-
-        private TransferUnit transferUnit = TransferUnit.Megabytes;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DailyViewModel"/> class.
         /// </summary>
@@ -24,63 +20,90 @@
         public DailyViewModel(IDownloadReportCommand downloadReportCommand)
         {
             downloadReportCommand.ReportDownloaded += this.DownloadCompleted;
+            this.TransferUnit = TransferUnit.Megabytes;
+            this.XValues = "Days";
         }
 
         /// <summary>
-        /// Gets or sets TransferUnit.
+        /// Filters values.
         /// </summary>
-        public TransferUnit TransferUnit
+        protected override void FilterValues()
         {
-            get
+            if (this.FilteringDisabled)
             {
-                return this.transferUnit;
+                return;
             }
 
-            set
-            {
-                this.transferUnit = value;
-                this.UpdateValues();
-                this.OnPropertyChanged("TransferUnit");
-            }
-        }
+            var result = this.AllValues.AsEnumerable();
 
-        /// <summary>
-        /// Gets Daily bandwidth.
-        /// </summary>
-        public List<DailyValue> Values
-        {
-            get
+            if (null != this.FilterStart)
             {
-                return this.values;
+                result = result.Where(x => (x.Timestamp >= this.FilterStart.Date));
             }
 
-            private set
+            if (null != this.FilterEnd)
             {
-                this.values = value;
-                this.OnPropertyChanged("Values");
+                result = result.Where(x => (x.Timestamp <= this.FilterEnd.Date));
             }
-        }
-
-        private void DownloadCompleted(object sender, ReportDownloadedEventArgs e)
-        {
-            // Update with the currently selected transfer unit
-            e.Daily.ForEach(x => x.ChangeTransferUnit(this.transferUnit));
-            this.Values = e.Daily;
-        }
-
-        private void UpdateValues()
-        {
-            // This is a workaround for the fact that I cannot bind to ConverterParameter
-            // and WPF Toolkit's chart DependentValueBinding does not support multivalue
-            // binding. So I need update the list which the chart uses as itemssource
-            // whenever the selected transfer unit (KB, MB, GB) changes.            
-            this.Values.ForEach(x => x.ChangeTransferUnit(this.transferUnit));
 
             // If we would use observable collection and update status of single values
             // inside it then screen would flicker because each change causes it to redraw
             // the scale (Y axis).  We also need to create completely new instance of the list
             // otherwise the chart won't update.            
-            this.Values = new List<DailyValue>(this.Values);
+            this.FilteredValues = new List<DailyValue>(result);
+        }
+
+        /// <summary>
+        /// Updates all and filtered values.
+        /// </summary>
+        protected override void UpdateAllAndFilteredValues()
+        {
+            // This method is a workaround for the fact that I cannot bind to ConverterParameter
+            // and WPF Toolkit's chart DependentValueBinding does not support multivalue
+            // binding. So I need update the list which the chart uses as itemssource
+            // whenever the selected transfer unit (KB, MB, GB) changes.      
+
+            // Updating all the values so that they are in sync.
+            this.AllValues.ForEach(x => x.ChangeTransferUnit(this.TransferUnit));
+
+            // If we would use observable collection and update status of single values
+            // inside it then screen would flicker because each change causes it to redraw
+            // the scale (Y axis).  We also need to create completely new instance of the list
+            // otherwise the chart won't update.            
+            this.FilteredValues = new List<DailyValue>(this.FilteredValues);
+        }
+
+        private void DownloadCompleted(object sender, ReportDownloadedEventArgs e)
+        {
+            this.LastUpdated = e.Timestamp;
+
+            // Update with the currently selected transfer unit
+            var temp = new List<DailyValue>(e.Daily);
+            temp.ForEach(x => x.ChangeTransferUnit(this.TransferUnit));
+            this.AllValues = temp;
+
+            this.Filters = e.Daily.Select(x => new DailyFilter(x)).ToList();
+
+            // Disable the filtering so that setting FilterStart/End
+            // does not cause filtering.
+            this.FilteringDisabled = true;
+
+            if (this.AllValues.HasElements())
+            {
+                if (null == this.FilterStart)
+                {
+                    this.FilterStart = new DailyFilter(e.Daily.FirstOrDefault());
+                }
+
+                if (null == this.FilterEnd)
+                {
+                    this.FilterEnd = new DailyFilter(e.Daily.LastOrDefault());
+                }
+            }
+
+            this.FilteringDisabled = false;
+
+            this.FilterValues();
         }
     }
 }

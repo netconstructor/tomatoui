@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="AutomatedUITests\When_application_is_started.cs" />
     <Compile Include="AutomatedUITests\When_update_button_is_clicked.cs" />
+    <Compile Include="DailyViewModelTests\When_EndFilter_Changes.cs" />
     <Compile Include="ExceptionParserTests.cs" />
     <Compile Include="CopyErrorReportToClipboardCommandTests.cs" />
     <Compile Include="DownloadReportCommandTests\When_Error_is_received.cs" />

@@ -24,28 +24,28 @@
             var monthly = new List<MonthlyBandwidth>() { new MonthlyBandwidth(2011, 1, oneGigabytes, oneGigabytes) };
             var daily = new List<DailyBandwidth> { new DailyBandwidth(2011, 1, 1, oneGigabytes, oneGigabytes) };
             var bandWidthReport = new BandwidthReport(monthly, daily);
-            return new ReportDownloadedEventArgs(bandWidthReport, DateTime.Now, null);            
+            return new ReportDownloadedEventArgs(bandWidthReport, DateTime.Now, null);
         }
 
         [Test]
-        public void Then_Daily_values_are_updated()
+        public void Then_values_are_updated()
         {
             var fakeDownloadReportCommand = A.Fake<IDownloadReportCommand>();
             var vm = new DailyViewModel(fakeDownloadReportCommand);
-            vm.TransferUnit= TransferUnit.Kilobytes;
+            vm.TransferUnit = TransferUnit.Kilobytes;
 
             // This causes the viewmodel to get the initial values
             fakeDownloadReportCommand.ReportDownloaded += Raise.With(CreateEventArgs()).Now;
 
             // Verify that initial values are using kilobytes
-            Assert.AreEqual(vm.Values[0].Download, 1048576);
-            Assert.AreEqual(vm.Values[0].Upload, 1048576);
+            Assert.AreEqual(vm.FilteredValues[0].Download, 1048576);
+            Assert.AreEqual(vm.FilteredValues[0].Upload, 1048576);
 
             // Change the transfer unit to gigabytes
             vm.TransferUnit = TransferUnit.Gigabytes;
 
-            Assert.AreEqual(vm.Values[0].Download, 1);
-            Assert.AreEqual(vm.Values[0].Upload, 1);
+            Assert.AreEqual(vm.FilteredValues[0].Download, 1);
+            Assert.AreEqual(vm.FilteredValues[0].Upload, 1);
         }
     }
 }

@@ -22,9 +22,13 @@
         public MonthlyViewModel(IDownloadReportCommand downloadReportCommand)
         {
             downloadReportCommand.ReportDownloaded += this.DownloadCompleted;
+            this.TransferUnit = TransferUnit.Gigabytes;
             this.XValues = "Months";
         }
 
+        /// <summary>
+        /// Filters values.
+        /// </summary>
         protected override void FilterValues()
         {
             if (this.FilteringDisabled)
@@ -32,7 +36,7 @@
                 return;
             }
 
-            var result = this.allValues.AsEnumerable();
+            var result = this.AllValues.AsEnumerable();
             
             if (null != this.FilterStart)
             {
@@ -51,14 +55,34 @@
             this.FilteredValues = new List<MonthlyValue>(result);
         }
 
+        /// <summary>
+        /// Updates all and filtered values.
+        /// </summary>
+        protected override void UpdateAllAndFilteredValues()
+        {
+            // This method is a workaround for the fact that I cannot bind to ConverterParameter
+            // and WPF Toolkit's chart DependentValueBinding does not support multivalue
+            // binding. So I need update the list which the chart uses as itemssource
+            // whenever the selected transfer unit (KB, MB, GB) changes.      
+      
+            // Updating all the values so that they are in sync.
+            this.AllValues.ForEach(x => x.ChangeTransferUnit(this.TransferUnit));
+
+            // If we would use observable collection and update status of single values
+            // inside it then screen would flicker because each change causes it to redraw
+            // the scale (Y axis).  We also need to create completely new instance of the list
+            // otherwise the chart won't update.            
+            this.FilteredValues = new List<MonthlyValue>(this.FilteredValues);
+        }
+
         private void DownloadCompleted(object sender, ReportDownloadedEventArgs e)
         {
             this.LastUpdated = e.Timestamp;
 
             // Update with the currently selected transfer unit
-            var temp = new List<MonthlyValue>(e.Monthly);            
+            var temp = new List<MonthlyValue>(e.Monthly);
             temp.ForEach(x => x.ChangeTransferUnit(this.TransferUnit));
-            this.allValues = temp;
+            this.AllValues = temp;
 
             this.Filters = e.Monthly.Select(x => new Filter(x)).ToList();
 
@@ -66,7 +90,7 @@
             // does not cause filtering.
             this.FilteringDisabled = true;
 
-            if (this.allValues.HasElements())
+            if (this.AllValues.HasElements())
             {
                 if (null == this.FilterStart)
                 {
@@ -76,29 +100,12 @@
                 if (null == this.FilterEnd)
                 {
                     this.FilterEnd = new Filter(e.Monthly.LastOrDefault());
-                }                
+                }
             }
 
             this.FilteringDisabled = false;
 
             this.FilterValues();
-        }
-
-        protected override void UpdateAllAndFilteredValues()
-        {
-            // This method is a workaround for the fact that I cannot bind to ConverterParameter
-            // and WPF Toolkit's chart DependentValueBinding does not support multivalue
-            // binding. So I need update the list which the chart uses as itemssource
-            // whenever the selected transfer unit (KB, MB, GB) changes.      
-      
-            // Updating all the values so that they are in sync.
-            this.allValues.ForEach(x => x.ChangeTransferUnit(this.TransferUnit));
-
-            // If we would use observable collection and update status of single values
-            // inside it then screen would flicker because each change causes it to redraw
-            // the scale (Y axis).  We also need to create completely new instance of the list
-            // otherwise the chart won't update.            
-            this.FilteredValues = new List<MonthlyValue>(this.FilteredValues);
         }
     }
 }
