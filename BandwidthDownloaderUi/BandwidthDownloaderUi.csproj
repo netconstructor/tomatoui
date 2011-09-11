@@ -161,6 +161,7 @@
     <Compile Include="Events\ReportDownloadedEventArgs.cs" />
     <Compile Include="Commands\DownloadReportCommand.cs" />
     <Compile Include="Filter.cs" />
+    <Compile Include="Views\ChartViewModel.cs" />
     <Compile Include="Views\MainViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
