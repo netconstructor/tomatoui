@@ -35,10 +35,11 @@
     /// </summary>
     public class DownloadReportCommand : Command, IDownloadReportCommand
     {
-        private bool isBusy;
-        private IReportDownloader reportDownloader;
-
         private readonly ISettings settings;
+
+        private bool isBusy;
+
+        private IReportDownloader reportDownloader;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DownloadReportCommand"/> class.
@@ -46,7 +47,7 @@
         /// <param name="reportDownloader">
         ///   The report downloader.
         /// </param>
-        /// <param name="settings"></param>
+        /// <param name="settings">The settings.</param>
         public DownloadReportCommand(IReportDownloader reportDownloader, ISettings settings)
         {
             this.reportDownloader = reportDownloader;

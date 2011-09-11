@@ -50,6 +50,5 @@
 
             this.MainWindow.DataContext = new MainViewModel(downlodReportCommand, ignoreCommand, openUriCommand, clipboardCommand, daily, monthly, settingsViewmodel);
         }
-
     }
 }

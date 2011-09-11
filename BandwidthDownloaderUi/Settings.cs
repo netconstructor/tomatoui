@@ -56,18 +56,6 @@
         }
 
         /// <summary>
-        /// Saves the settings.
-        /// </summary>
-        public void SaveSettings()
-        {
-            this.SetValue("Address", this.Address);
-            this.SetValue("UserName", this.UserName);
-            this.SetValue("Password", this.Password);
-            this.SetValue("Timeout", this.Timeout);
-            this.Save();
-        }
-
-        /// <summary>
         /// Gets or sets Address.
         /// </summary>
         public string Address { get; set; }
@@ -86,5 +74,17 @@
         /// Gets or sets Timeout.
         /// </summary>
         public int Timeout { get; set; }
+
+        /// <summary>
+        /// Saves the settings.
+        /// </summary>
+        public void SaveSettings()
+        {
+            this.SetValue("Address", this.Address);
+            this.SetValue("UserName", this.UserName);
+            this.SetValue("Password", this.Password);
+            this.SetValue("Timeout", this.Timeout);
+            this.Save();
+        }
     }
 }

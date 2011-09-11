@@ -12,6 +12,15 @@
 
         private readonly Func<object, bool> canExecute;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DelegateCommand"/> class.
+        /// </summary>
+        /// <param name="execute">
+        /// The execute action.
+        /// </param>
+        /// <param name="canExecute">
+        /// The can execute action.
+        /// </param>
         public DelegateCommand(Action<object> execute, Func<object, bool> canExecute)
         {
             this.execute = execute;
@@ -23,11 +32,26 @@
         /// </summary>
         public event EventHandler CanExecuteChanged;
 
+        /// <summary>
+        /// Executes the command.
+        /// </summary>
+        /// <param name="parameter">
+        /// The parameter.
+        /// </param>
         public void Execute(object parameter)
         {
             this.execute(parameter);
         }
 
+        /// <summary>
+        /// Checks if command can be executed.
+        /// </summary>
+        /// <param name="parameter">
+        /// The parameter.
+        /// </param>
+        /// <returns>
+        /// True if command can be executed.
+        /// </returns>
         public bool CanExecute(object parameter)
         {
             return this.canExecute(parameter);
