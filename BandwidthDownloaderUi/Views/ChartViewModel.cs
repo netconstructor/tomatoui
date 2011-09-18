@@ -18,6 +18,8 @@
     {
         private List<TValueType> filteredValues = new List<TValueType>();
 
+        private List<TValueType> allValues = new List<TValueType>();
+
         private DateTime? lastUpdated;
 
         private TransferUnit transferUnit = TransferUnit.Gigabytes;
@@ -39,7 +41,19 @@
         /// <summary>
         /// Gets or sets AllValues.
         /// </summary>
-        public List<TValueType> AllValues { get; set; }
+        public List<TValueType> AllValues
+        {
+            get
+            {
+                return this.allValues;
+            }
+
+            set
+            {
+                this.allValues = value;
+                this.OnPropertyChanged("AllValues");
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether FilteringDisabled.

@@ -69,9 +69,9 @@
     							Content="{TemplateBinding Title}" 
     							Style="{TemplateBinding TitleStyle}" />
 
-                            <!--Visibility="{Binding FilteredValues, Converter={StaticResource ListCountToVisibilityConverter}}"-->
+                            
                             <StackPanel 
-                                
+                            Visibility="{Binding AllValues, Converter={StaticResource ListCountToVisibilityConverter}}"
                                 Margin="0,0,0,8" Orientation="Horizontal" Grid.Column="1">
     							<ComboBox 					
     								MaxHeight="25"
