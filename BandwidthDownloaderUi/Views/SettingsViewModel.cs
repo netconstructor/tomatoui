@@ -19,8 +19,6 @@
 
         private string address;
 
-        private string error;
-
         private string timeoutText;
 
         private DelegateCommand saveCommand;
@@ -127,7 +125,7 @@
         {
             get
             {
-                return this.error;
+                return null;
             }
         }
 

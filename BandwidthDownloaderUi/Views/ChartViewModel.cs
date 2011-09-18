@@ -35,12 +35,13 @@
         /// </summary>
         public ChartViewModel()
         {
-            this.AllValues = new List<TValueType>();
+            this.allValues = new List<TValueType>();
         }
 
         /// <summary>
         /// Gets or sets AllValues.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "ViewModel")]
         public List<TValueType> AllValues
         {
             get
@@ -68,6 +69,7 @@
         /// <summary>
         /// Gets or sets FilteredValues.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "ViewModel")]
         public List<TValueType> FilteredValues
         {
             get
@@ -103,6 +105,7 @@
         /// <summary>
         /// Gets or sets Filters.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "ViewModel")]
         public List<TFilterType> Filters
         {
             get
