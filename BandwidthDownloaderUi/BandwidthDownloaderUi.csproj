@@ -151,7 +151,7 @@
     <Compile Include="Converters\NullToVisibilityValueConverter.cs" />
     <Compile Include="Converters\ListCountToVisibilityValueConverter.cs" />
     <Compile Include="Converters\TransferUnitValueConverter.cs" />
-    <Compile Include="Converters\MonthlyMinMaxAvgValueConverter.cs" />
+    <Compile Include="Converters\ChartStatisticsValueConverter.cs" />
     <Compile Include="Converters\DailyTimestampValueConverter.cs" />
     <Compile Include="DailyValue.cs" />
     <Compile Include="ExceptionParser.cs" />

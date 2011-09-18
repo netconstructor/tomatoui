@@ -19,7 +19,7 @@
     
     <Application.Resources>
 
-    	<Converters:MonthlyMinMaxAvgValueConverter x:Key="MonthlyMinMaxAvgValueConverter"/>
+    	<Converters:ChartStatisticsValueConverter x:Key="MonthlyMinMaxAvgValueConverter"/>
         <Converters:TransferUnitValueConverter x:Key="TransferUnitValueConverter"/>
         <Converters:CollectionElementCountValueConverter x:Key="CollectionElementCountValueConverter"/>
         <Converters:ListCountToVisibilityValueConverter x:Key="ListCountToVisibilityConverter"/>

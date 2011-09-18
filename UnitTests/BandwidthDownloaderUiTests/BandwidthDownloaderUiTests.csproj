@@ -81,7 +81,7 @@
     <Compile Include="SettingsViewModelTests\When_settings_are_invalid.cs" />
     <Compile Include="SettingsViewModelTests\When_settings_are_valid.cs" />
     <Compile Include="TransferUnitValueConverterTests.cs" />
-    <Compile Include="MonthlyMinMaxAvgValueConverterTests.cs" />
+    <Compile Include="ChartStatisticsValueConverterTests.cs" />
     <Compile Include="DailyViewModelTests\When_TransferUnit_Changes.cs" />
     <Compile Include="DailyViewModelTests\When_Report_Is_Downloaded.cs" />
     <Compile Include="MonthlyViewModelTests\When_EndFilter_Changes.cs" />

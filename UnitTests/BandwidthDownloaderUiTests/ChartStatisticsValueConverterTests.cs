@@ -13,15 +13,15 @@
     using System.Collections.Generic;
 
     [TestFixture]
-    public class MonthlyMinMaxAvgValueConverterTests
+    public class ChartStatisticsValueConverterTests
     {
         [Test]
         public void Should_return_max_download_value()
         {
             List<MonthlyValue> values = GetValues();
 
-            var converter = new MonthlyMinMaxAvgValueConverter();
-            var result = (double)converter.Convert(values, typeof(double), MonthlyMinMaxAvgValueConverter.MaxDownload, CultureInfo.InvariantCulture);
+            var converter = new ChartStatisticsValueConverter();
+            var result = (double)converter.Convert(values, typeof(double), ChartStatisticsValueConverter.MaxDownload, CultureInfo.InvariantCulture);
 
             Assert.AreEqual(100, result);
         }
@@ -31,8 +31,8 @@
         {
             var values = this.GetValues();
 
-            var converter = new MonthlyMinMaxAvgValueConverter();
-            var result = (double)converter.Convert(values, typeof(double), MonthlyMinMaxAvgValueConverter.MinDownload, CultureInfo.InvariantCulture);
+            var converter = new ChartStatisticsValueConverter();
+            var result = (double)converter.Convert(values, typeof(double), ChartStatisticsValueConverter.MinDownload, CultureInfo.InvariantCulture);
 
             Assert.AreEqual(10, result);
         }
@@ -42,8 +42,8 @@
         {
             var values = this.GetValues();
 
-            var converter = new MonthlyMinMaxAvgValueConverter();
-            var result = (double)converter.Convert(values, typeof(double), MonthlyMinMaxAvgValueConverter.AvgDownload, CultureInfo.InvariantCulture);
+            var converter = new ChartStatisticsValueConverter();
+            var result = (double)converter.Convert(values, typeof(double), ChartStatisticsValueConverter.AvgDownload, CultureInfo.InvariantCulture);
 
             Assert.AreEqual(60, result);
         }
@@ -53,8 +53,8 @@
         {
             var values = this.GetValues();
 
-            var converter = new MonthlyMinMaxAvgValueConverter();
-            var result = (double)converter.Convert(values, typeof(double), MonthlyMinMaxAvgValueConverter.SumDownload, CultureInfo.InvariantCulture);
+            var converter = new ChartStatisticsValueConverter();
+            var result = (double)converter.Convert(values, typeof(double), ChartStatisticsValueConverter.SumDownload, CultureInfo.InvariantCulture);
 
             Assert.AreEqual(180, result);            
         }
@@ -64,8 +64,8 @@
         {
             List<MonthlyValue> values = GetValues();
 
-            var converter = new MonthlyMinMaxAvgValueConverter();
-            var result = (double)converter.Convert(values, typeof(double), MonthlyMinMaxAvgValueConverter.MaxUpload, CultureInfo.InvariantCulture);
+            var converter = new ChartStatisticsValueConverter();
+            var result = (double)converter.Convert(values, typeof(double), ChartStatisticsValueConverter.MaxUpload, CultureInfo.InvariantCulture);
 
             Assert.AreEqual(3, result);
         }
@@ -75,8 +75,8 @@
         {
             var values = this.GetValues();
 
-            var converter = new MonthlyMinMaxAvgValueConverter();
-            var result = (double)converter.Convert(values, typeof(double), MonthlyMinMaxAvgValueConverter.MinUpload, CultureInfo.InvariantCulture);
+            var converter = new ChartStatisticsValueConverter();
+            var result = (double)converter.Convert(values, typeof(double), ChartStatisticsValueConverter.MinUpload, CultureInfo.InvariantCulture);
 
             Assert.AreEqual(1, result);
         }
@@ -86,8 +86,8 @@
         {
             var values = this.GetValues();
 
-            var converter = new MonthlyMinMaxAvgValueConverter();
-            var result = (double)converter.Convert(values, typeof(double), MonthlyMinMaxAvgValueConverter.AvgUpload, CultureInfo.InvariantCulture);
+            var converter = new ChartStatisticsValueConverter();
+            var result = (double)converter.Convert(values, typeof(double), ChartStatisticsValueConverter.AvgUpload, CultureInfo.InvariantCulture);
 
             Assert.AreEqual(2, result);
         }
@@ -97,8 +97,8 @@
         {
             var values = this.GetValues();
 
-            var converter = new MonthlyMinMaxAvgValueConverter();
-            var result = (double)converter.Convert(values, typeof(double), MonthlyMinMaxAvgValueConverter.SumUpload, CultureInfo.InvariantCulture);
+            var converter = new ChartStatisticsValueConverter();
+            var result = (double)converter.Convert(values, typeof(double), ChartStatisticsValueConverter.SumUpload, CultureInfo.InvariantCulture);
 
             Assert.AreEqual(6, result);
         }

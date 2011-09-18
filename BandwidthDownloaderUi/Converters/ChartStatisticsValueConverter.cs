@@ -11,7 +11,7 @@ namespace BandwidthDownloaderUi.Converters
     /// Calculates statistics value for collection of bandwidth values.
     /// </summary>
     [ValueConversion(typeof(List<BandwidthValue>), typeof(double))]
-    public class MonthlyMinMaxAvgValueConverter : IValueConverter
+    public class ChartStatisticsValueConverter : IValueConverter
     {
         /// <summary>
         /// MaxDownload ConverterParameter.
