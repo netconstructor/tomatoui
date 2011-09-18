@@ -15,10 +15,18 @@
         <Style x:Key="SlideInBorder" TargetType="{x:Type Border}">
             <Style.Resources>
                 <Storyboard x:Key="Storyboard1">
-                    <DoubleAnimation BeginTime="00:00:00" From="0" To="80" Duration="00:00:0.1" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(FrameworkElement.Height)"/>                    
+                    <DoubleAnimation BeginTime="00:00:00" From="0" To="80" Duration="00:00:0.3" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(FrameworkElement.Height)">
+                        <!--<DoubleAnimation.EasingFunction>
+                            <ExponentialEase EasingMode="EaseIn" />
+                        </DoubleAnimation.EasingFunction>-->
+                    </DoubleAnimation>
                 </Storyboard>
                 <Storyboard x:Key="Storyboard2">
-                    <DoubleAnimation BeginTime="00:00:00" To="0" Duration="00:00:0.1" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(FrameworkElement.Height)"/>
+                    <DoubleAnimation BeginTime="00:00:00" To="0" Duration="00:00:0.3" Storyboard.TargetName="{x:Null}" Storyboard.TargetProperty="(FrameworkElement.Height)">
+                        <!--<DoubleAnimation.EasingFunction>
+                            <ExponentialEase EasingMode="EaseIn" />
+                        </DoubleAnimation.EasingFunction>-->
+                    </DoubleAnimation>
                 </Storyboard>
             </Style.Resources>
 
