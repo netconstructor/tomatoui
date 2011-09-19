@@ -7,11 +7,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("BandwidthDownloaderUi")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Displays bandwidth info from tomato router")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Toni Parviainen")]
 [assembly: AssemblyProduct("BandwidthDownloaderUi")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
+[assembly: AssemblyCopyright("Copyright © Toni Parviainen 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
